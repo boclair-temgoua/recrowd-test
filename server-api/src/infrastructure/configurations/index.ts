@@ -16,10 +16,6 @@ export const configurations = {
     url: process.env.NODE_APP_URL,
     pricingBilling: Number(process.env.PRICING_BILLING_VOUCHER),
     urlClient: process.env.NODE_CLIENT_URL,
-    email: process.env.MAIL_FROM_ADDRESS,
-    daysOneMonth: Number(process.env.DAYS_ONE_MONTH_SUBSCRIBE),
-    amountOneMonth: Number(process.env.AMOUNT_ONE_MONTH_SUBSCRIBE),
-    emailNoreply: process.env.MAIL_FROM_NO_REPLAY_ADDRESS,
   },
   /**
    * Api
@@ -44,20 +40,5 @@ export const configurations = {
     name: process.env.POSTGRES_DB,
     ssl: process.env.POSTGRES_SSL,
     logging: process.env.POSTGRES_LOG,
-  },
-
-  /**
-   * External implementations
-   */
-  implementations: {
-    /**
-     * Mailtrap
-     */
-    mailSMTP: {
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT),
-      user: process.env.MAIL_USERNAME,
-      pass: process.env.MAIL_PASSWORD,
-    },
   },
 };
