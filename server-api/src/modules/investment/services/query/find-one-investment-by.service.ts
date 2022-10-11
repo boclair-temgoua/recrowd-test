@@ -16,13 +16,7 @@ export class FindOneInvestmentByService {
     const { option1, option2 } = { ...selections };
     let query = this.driver
       .createQueryBuilder('investment')
-      .select('investment.title', 'title')
-      .addSelect('investment.status', 'status')
-      .addSelect('investment.amount', 'amount')
-      .addSelect('investment.description', 'description')
-      .addSelect('investment.expiredAt', 'expiredAt')
-      .addSelect('investment.timerAt', 'timerAt')
-      .andWhere('investment.deletedAt IS NULL');
+      .where('investment.deletedAt IS NULL');
 
     if (option1) {
       const { investment_uuid } = { ...option1 };
@@ -37,7 +31,8 @@ export class FindOneInvestmentByService {
     }
 
     const [error, result] = await useCatch(query.getOne());
-    if (error) throw new HttpException('Faq not found', HttpStatus.NOT_FOUND);
+    if (error)
+      throw new HttpException('Investment not found', HttpStatus.NOT_FOUND);
 
     return result;
   }

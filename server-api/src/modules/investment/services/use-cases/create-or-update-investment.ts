@@ -18,12 +18,21 @@ export class CreateOrUpdateInvestment {
 
   /** Create one Investment Or Update to the database. */
   async createOrUpdate(options: CreateOrUpdateInvestmentDto): Promise<any> {
-    const { investment_uuid, title, status, description } = {
+    const {
+      investment_uuid,
+      title,
+      status,
+      currency,
+      amount,
+      description,
+      expiredMinAt,
+      expiredMaxAt,
+    } = {
       ...options,
     };
 
     if (investment_uuid) {
-      const [error, findFaq] = await useCatch(
+      const [error, findInvestment] = await useCatch(
         this.findOneInvestmentByService.findOneBy({
           option1: { investment_uuid },
         }),
@@ -31,7 +40,7 @@ export class CreateOrUpdateInvestment {
       if (error) {
         throw new NotFoundException(error);
       }
-      if (!findFaq)
+      if (!findInvestment)
         throw new HttpException(
           `Investment invalid or expired`,
           HttpStatus.NOT_FOUND,
@@ -39,7 +48,7 @@ export class CreateOrUpdateInvestment {
       const [errorUpdate, update] = await useCatch(
         this.createOrUpdateInvestmentService.updateOne(
           { option1: { investment_uuid } },
-          { title, status, description },
+          { title, currency, expiredMaxAt, expiredMinAt, amount, description },
         ),
       );
       if (errorUpdate) {
@@ -51,7 +60,12 @@ export class CreateOrUpdateInvestment {
       const [_errorSave, investment] = await useCatch(
         this.createOrUpdateInvestmentService.createOne({
           title,
+          currency,
+          expiredMaxAt,
+          expiredMinAt,
+          amount,
           description,
+          userId: 1,
         }),
       );
       if (_errorSave) {
@@ -78,7 +92,7 @@ export class CreateOrUpdateInvestment {
         HttpStatus.NOT_FOUND,
       );
 
-    /** Delete one Faq */
+    /** Delete one Investment */
     const [_error, _] = await useCatch(
       this.createOrUpdateInvestmentService.updateOne(
         { option1: { investment_uuid } },

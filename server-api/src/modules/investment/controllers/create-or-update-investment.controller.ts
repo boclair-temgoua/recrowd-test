@@ -9,6 +9,8 @@ import {
   Delete,
   UseGuards,
   Request,
+  Put,
+  Res,
 } from '@nestjs/common';
 import { reply } from '../../../infrastructure/utils/reply';
 import { useCatch } from '../../../infrastructure/utils/use-catch';
@@ -22,13 +24,12 @@ export class CreateOrUpdateInvestmentController {
     private readonly createOrUpdateInvestment: CreateOrUpdateInvestment,
   ) {}
 
-  @Post(`/create-or-update`)
+  @Post(`/create`)
   async createOne(
-    @Response() res: any,
+    @Res() res,
     @Request() req: any,
     @Body() createOrUpdateInvestmentDto: CreateOrUpdateInvestmentDto,
   ) {
-    const { user } = req;
     const [errors, results] = await useCatch(
       this.createOrUpdateInvestment.createOrUpdate({
         ...createOrUpdateInvestmentDto,
@@ -40,9 +41,27 @@ export class CreateOrUpdateInvestmentController {
     return reply({ res, results });
   }
 
+  @Put(`/update/:investment_uuid`)
+  async updateOne(
+    @Res() res,
+    @Body() createOrUpdateInvestmentDto: CreateOrUpdateInvestmentDto,
+    @Param('investment_uuid', ParseUUIDPipe) investment_uuid: string,
+  ) {
+    const [errors, results] = await useCatch(
+      this.createOrUpdateInvestment.createOrUpdate({
+        ...createOrUpdateInvestmentDto,
+        investment_uuid,
+      }),
+    );
+    if (errors) {
+      throw new NotFoundException(errors);
+    }
+    return reply({ res, results });
+  }
+
   @Delete(`/delete/:investment_uuid`)
   async deleteOne(
-    @Response() res: any,
+    @Res() res,
     @Param('investment_uuid', ParseUUIDPipe) investment_uuid: string,
   ) {
     const [errors, results] = await useCatch(

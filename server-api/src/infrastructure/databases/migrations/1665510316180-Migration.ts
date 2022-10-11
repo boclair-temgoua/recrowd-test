@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Migration1665506852508 implements MigrationInterface {
-  name = 'Migration1665506852508';
+export class Migration1665510316180 implements MigrationInterface {
+  name = 'Migration1665510316180';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "investment" ("createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "id" BIGSERIAL NOT NULL, "uuid" uuid, "title" character varying, "timerAt" TIMESTAMP WITH TIME ZONE, "expiredAt" TIMESTAMP WITH TIME ZONE, "status" boolean NOT NULL DEFAULT true, "amount" double precision, "userId" bigint, CONSTRAINT "UQ_7270a6957a9161b8fbac761100d" UNIQUE ("uuid"), CONSTRAINT "PK_ad085a94bd56e031136925f681b" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "investment" ("createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "id" BIGSERIAL NOT NULL, "uuid" uuid, "title" character varying, "currency" character varying, "expiredMaxAt" TIMESTAMP WITH TIME ZONE, "expiredMinAt" TIMESTAMP WITH TIME ZONE, "status" boolean NOT NULL DEFAULT true, "amount" double precision, "description" character varying, "userId" bigint, CONSTRAINT "UQ_7270a6957a9161b8fbac761100d" UNIQUE ("uuid"), CONSTRAINT "PK_ad085a94bd56e031136925f681b" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "role" ("createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "id" BIGSERIAL NOT NULL, "name" character varying, "description" character varying, CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))`,

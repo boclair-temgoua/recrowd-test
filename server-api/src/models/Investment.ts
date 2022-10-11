@@ -16,11 +16,14 @@ export class Investment extends BaseDeleteEntity {
   @Column({ nullable: true })
   title?: string;
 
-  @Column({ nullable: true, type: 'timestamptz' })
-  timerAt?: Date;
+  @Column({ nullable: true })
+  currency?: string;
 
   @Column({ nullable: true, type: 'timestamptz' })
-  expiredAt?: Date;
+  expiredMaxAt?: Date;
+
+  @Column({ nullable: true, type: 'timestamptz' })
+  expiredMinAt?: Date;
 
   @Column({ default: true })
   status?: boolean;

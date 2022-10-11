@@ -20,13 +20,25 @@ export class FindInvestmentService {
 
     let query = this.driver
       .createQueryBuilder('investment')
-      .select('investment.title', 'title')
+      .select('investment.uuid', 'uuid')
+      .addSelect('investment.title', 'title')
       .addSelect('investment.status', 'status')
       .addSelect('investment.amount', 'amount')
+      .addSelect('investment.currency', 'currency')
       .addSelect('investment.description', 'description')
-      .addSelect('investment.expiredAt', 'expiredAt')
-      .addSelect('investment.timerAt', 'timerAt')
-      .andWhere('investment.deletedAt IS NULL');
+      .addSelect('investment.expiredMaxAt', 'expiredMaxAt')
+      .addSelect('investment.expiredMinAt', 'expiredMinAt')
+      .addSelect(
+        /*sql*/ `
+      CASE WHEN ("investment"."expiredMaxAt" >= now()::date) THEN false 
+          WHEN ("investment"."expiredMaxAt" < now()::date) THEN true
+          ELSE false
+          END
+        `,
+        'isExpiredAt',
+      )
+      .addSelect('investment.createdAt', 'createdAt')
+      .where('investment.deletedAt IS NULL');
 
     if (option1) {
       const { userId } = { ...option1 };

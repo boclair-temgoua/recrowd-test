@@ -19,16 +19,30 @@ export class CreateOrUpdateInvestmentService {
 
   /** Create one Investment to the database. */
   async createOne(options: CreateInvestmentOptions): Promise<Investment> {
-    const { userId, timerAt, expiredAt, title, description } = {
+    const {
+      userId,
+      expiredMinAt,
+      expiredMaxAt,
+      title,
+      currency,
+      description,
+      amount,
+    } = {
       ...options,
     };
 
     const investment = new Investment();
     investment.uuid = generateUUID();
+    investment.currency = currency;
     investment.userId = userId;
     investment.title = title;
-    investment.expiredAt = expiredAt;
-    investment.timerAt = timerAt;
+    investment.amount = amount;
+    investment.expiredMinAt = new Date(expiredMinAt).getTime()
+      ? expiredMinAt
+      : null;
+    investment.expiredMaxAt = new Date(expiredMaxAt).getTime()
+      ? expiredMaxAt
+      : null;
     investment.description = description;
 
     const query = this.driver.save(investment);
@@ -45,7 +59,16 @@ export class CreateOrUpdateInvestmentService {
     options: UpdateInvestmentOptions,
   ): Promise<Investment> {
     const { option1, option2 } = { ...selections };
-    const { timerAt, expiredAt, title, description, status, deletedAt } = {
+    const {
+      expiredMinAt,
+      expiredMaxAt,
+      title,
+      currency,
+      description,
+      status,
+      amount,
+      deletedAt,
+    } = {
       ...options,
     };
 
@@ -68,9 +91,11 @@ export class CreateOrUpdateInvestmentService {
 
     findItem.title = title;
     findItem.description = description;
+    findItem.currency = currency;
     findItem.status = status;
-    findItem.timerAt = timerAt;
-    findItem.expiredAt = expiredAt;
+    findItem.amount = amount;
+    findItem.expiredMinAt = expiredMinAt;
+    findItem.expiredMaxAt = expiredMaxAt;
     findItem.deletedAt = deletedAt;
 
     const query = this.driver.save(findItem);

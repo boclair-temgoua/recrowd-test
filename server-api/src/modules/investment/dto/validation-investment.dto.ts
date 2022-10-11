@@ -5,6 +5,7 @@ import {
   MinLength,
   IsBoolean,
   IsOptional,
+  IsInt,
   IsUUID,
 } from 'class-validator';
 
@@ -14,10 +15,6 @@ export class CreateOrUpdateInvestmentDto {
   @IsUUID()
   investment_uuid: string;
 
-  @IsOptional()
-  @IsBoolean()
-  status: boolean;
-
   @IsNotEmpty()
   @IsString()
   @MaxLength(100)
@@ -26,10 +23,29 @@ export class CreateOrUpdateInvestmentDto {
 
   @IsNotEmpty()
   @IsString()
+  @MaxLength(100)
+  currency: string;
+
+  @IsNotEmpty()
+  expiredMinAt: Date;
+
+  @IsNotEmpty()
+  expiredMaxAt: Date;
+
+  @IsOptional()
+  @IsBoolean()
+  status: boolean;
+
+  @IsNotEmpty()
+  @IsString()
   description: string;
+
+  @IsNotEmpty()
+  @IsInt()
+  amount?: number;
 }
 
-export class FaqUuidDto {
+export class InvestmentUuidDto {
   @IsNotEmpty()
   @IsString()
   @IsUUID()
