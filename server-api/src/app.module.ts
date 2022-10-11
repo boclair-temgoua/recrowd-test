@@ -6,6 +6,7 @@ import {
   AppSeedDataSource,
 } from './infrastructure/databases/config';
 import { ConfigModule } from '@nestjs/config';
+import { InvestmentModule } from './modules/investment/investment.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRoot(AppDataSource.options),
     TypeOrmModule.forRoot(AppSeedDataSource.options),
     ScheduleModule.forRoot(),
+    InvestmentModule,
   ],
 })
 export class AppModule {}

@@ -44,7 +44,15 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+## Running the app api with docker
 
+```bash
+# development
+npm run docker:dev:rebuild
+
+# production mode
+npm run start:prod
+```
 ## Test
 
 ```bash

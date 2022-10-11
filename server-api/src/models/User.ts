@@ -3,13 +3,12 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { BaseDeleteEntity } from '../infrastructure/databases/common/BaseDeleteEntity';
+import { Role } from './Role';
 
 @Entity('user')
 export class User extends BaseDeleteEntity {
@@ -26,12 +25,6 @@ export class User extends BaseDeleteEntity {
   @Column({ unique: true, nullable: true })
   email?: string;
 
-  @Column('simple-array', { nullable: true })
-  accessToken?: string[];
-
-  @Column('simple-array', { nullable: true })
-  refreshToken?: string[];
-
   @Column({ nullable: true })
   username?: string;
 
@@ -39,10 +32,13 @@ export class User extends BaseDeleteEntity {
   fullName?: string;
 
   @Column({ nullable: true })
-  token?: string;
-
-  @Column({ nullable: true })
   password?: string;
+
+  @Column({ type: 'bigint', nullable: true })
+  roleId?: number;
+  @ManyToOne(() => Role, (role) => role.users)
+  @JoinColumn()
+  role?: Role;
 
   async hashPassword(password: string) {
     this.password = await bcrypt.hashSync(password || this.password, 8);
