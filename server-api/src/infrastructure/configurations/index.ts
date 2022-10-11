@@ -28,7 +28,7 @@ export const configurations = {
   /**
    * Server port
    */
-  port: process.env.PORT || 5500,
+  port: process.env.PORT || 5400,
   /**
    * Database
    */
