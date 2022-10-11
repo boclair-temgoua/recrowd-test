@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+    recrowd_test_host_db:
+        container_name: 'db_recrowd_test'
+        image: 'postgres:14-alpine'
+        restart: always
+        env_file:
+            - ./.env
+        ports:
+            - '5435:5432'
+        volumes:
+            - ./database/dbrecrowdtestdevelop:/var/lib/postgresql/data/
+
+    recrowd_test_api:
+        container_name: 'recrowd_test_api'
+        build: .
+        restart: always
+        volumes:
+            - .:/app/
+            - /app/node_modules
+        entrypoint: /bin/sh './scripts/be-node-dev.sh'
+        env_file:
+            - ./.env
+        ports:
+            - '5400:5400'
+        depends_on:
+            - recrowd_test_host_db
+        links:
+            - recrowd_test_host_db
