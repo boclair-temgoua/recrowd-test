@@ -1,13 +1,11 @@
 import {
   Controller,
   Post,
-  Response,
   NotFoundException,
   Body,
   Param,
   ParseUUIDPipe,
   Delete,
-  UseGuards,
   Request,
   Put,
   Res,
@@ -24,6 +22,7 @@ export class CreateOrUpdateInvestmentController {
     private readonly createOrUpdateInvestment: CreateOrUpdateInvestment,
   ) {}
 
+  /** Create */
   @Post(`/create`)
   async createOne(
     @Res() res,
@@ -41,6 +40,7 @@ export class CreateOrUpdateInvestmentController {
     return reply({ res, results });
   }
 
+  /** Update */
   @Put(`/update/:investment_uuid`)
   async updateOne(
     @Res() res,
@@ -59,6 +59,7 @@ export class CreateOrUpdateInvestmentController {
     return reply({ res, results });
   }
 
+  /** Delete */
   @Delete(`/delete/:investment_uuid`)
   async deleteOne(
     @Res() res,
