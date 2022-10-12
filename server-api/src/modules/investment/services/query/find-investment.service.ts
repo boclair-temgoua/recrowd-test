@@ -41,7 +41,7 @@ export class FindInvestmentService {
         /*sql*/ `(
           SELECT jsonb_build_object(
           'uuid', "us"."uuid",
-          'userIs', "us"."id",
+          'userId', "us"."id",
           'fullName', "us"."fullName"
           )
           FROM "user" "us"
