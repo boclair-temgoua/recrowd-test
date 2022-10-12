@@ -24,7 +24,7 @@ export const updateOneInvestmentApi = (
 export const deleteOneInvestmentApi = (
   payload: CreateOrUpdateInvestmentRequest
 ) => {
-  return dyaxios.delete(`/investments/update/${payload?.investment_uuid}`);
+  return dyaxios.delete(`/investments/delete/${payload?.investment_uuid}`);
 };
 
 export const getInvestments = (options: {

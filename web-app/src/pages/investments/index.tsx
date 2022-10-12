@@ -80,8 +80,8 @@ const Investment: NextPage = () => {
               <thead>
                 <tr>
                   <th >Title</th>
-                  <th >Scadenza1</th>
-                  <th>Scadenza</th>
+                  <th >Durata</th>
+                  <th>Capitale</th>
                   <th >Action</th>
                 </tr>
               </thead>

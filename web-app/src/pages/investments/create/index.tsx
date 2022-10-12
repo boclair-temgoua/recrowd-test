@@ -19,7 +19,7 @@ const schema = yup
     title: yup.string().min(3, 'Minimum 3 symbols').required(),
     amount: yup.number().required(),
     expiredMinAt: yup.date().min(new Date(), 'Please choose future date').required(),
-    expiredMaxAt: yup.date().min(yup.ref("expiredMinAt"), "End date has to be more than start date").required(),
+    expiredMaxAt: yup.date().min(yup.ref("expiredMinAt"), "La data massima deve essere magiore all durata investimento").required(),
   })
   .required();
 

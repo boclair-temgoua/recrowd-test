@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import 'swiper/css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'toastify-js/src/toastify.css';
 import 'toastify-js/src/toastify.css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
