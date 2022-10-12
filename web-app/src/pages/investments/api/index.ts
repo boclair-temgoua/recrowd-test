@@ -23,3 +23,17 @@ export const deleteOneInvestmentApi = (
 ) => {
   return dyaxios.delete(`/investment/update/${payload?.investment_uuid}`);
 };
+
+export const getInvestments = (options: {
+  q?: string;
+  sort: string;
+  limit: number;
+  page: number;
+}) => {
+  const { q, sort, limit, page } = options;
+  return dyaxios.get(
+    `/investments?sort=${sort}&limit=${limit}${
+      q ? `&q=${q}&page=${page}` : `&page=${page}`
+    }`
+  );
+};

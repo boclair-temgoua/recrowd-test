@@ -37,6 +37,17 @@ export class FindInvestmentService {
         `,
         'isExpiredAt',
       )
+      .addSelect(
+        /*sql*/ `(
+          SELECT jsonb_build_object(
+          'uuid', "us"."uuid",
+          'userIs', "us"."id",
+          'fullName', "us"."fullName"
+          )
+          FROM "user" "us"
+          WHERE "investment"."userId" = "us"."id"
+          ) AS "user"`,
+      )
       .addSelect('investment.createdAt', 'createdAt')
       .where('investment.deletedAt IS NULL');
 

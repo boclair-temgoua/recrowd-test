@@ -1,6 +1,6 @@
-export type OneOrganizationResponse = {
+export type OneInvestmentResponse = {
   id: number;
-  uid: string;
+  uuid: string;
   title: string;
   status: boolean;
   currency: string;

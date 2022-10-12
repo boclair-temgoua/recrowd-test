@@ -16,6 +16,35 @@ export class FindOneInvestmentByService {
     const { option1, option2 } = { ...selections };
     let query = this.driver
       .createQueryBuilder('investment')
+      .select('investment.uuid', 'uuid')
+      .addSelect('investment.title', 'title')
+      .addSelect('investment.status', 'status')
+      .addSelect('investment.amount', 'amount')
+      .addSelect('investment.currency', 'currency')
+      .addSelect('investment.description', 'description')
+      .addSelect('investment.expiredMaxAt', 'expiredMaxAt')
+      .addSelect('investment.expiredMinAt', 'expiredMinAt')
+      .addSelect(
+        /*sql*/ `
+    CASE WHEN ("investment"."expiredMaxAt" >= now()::date) THEN false 
+        WHEN ("investment"."expiredMaxAt" < now()::date) THEN true
+        ELSE false
+        END
+      `,
+        'isExpiredAt',
+      )
+      .addSelect(
+        /*sql*/ `(
+        SELECT jsonb_build_object(
+        'uuid', "us"."uuid",
+        'userIs', "us"."id",
+        'fullName', "us"."fullName"
+        )
+        FROM "user" "us"
+        WHERE "investment"."userId" = "us"."id"
+        ) AS "user"`,
+      )
+      .addSelect('investment.createdAt', 'createdAt')
       .where('investment.deletedAt IS NULL');
 
     if (option1) {
@@ -30,7 +59,7 @@ export class FindOneInvestmentByService {
       query = query.andWhere('investment.id = :id', { id: investmentId });
     }
 
-    const [error, result] = await useCatch(query.getOne());
+    const [error, result] = await useCatch(query.getRawOne());
     if (error)
       throw new HttpException('Investment not found', HttpStatus.NOT_FOUND);
 

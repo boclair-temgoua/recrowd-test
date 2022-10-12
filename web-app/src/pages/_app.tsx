@@ -5,17 +5,19 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // Import Swiper style
 import 'swiper/css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'toastify-js/src/toastify.css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Script from 'next/script'
+import '../../styles/App.css';
+
 
 //Modal Video
 import Head from 'next/head';
 import { Fragment } from 'react';
+
 
 const queryClient = new QueryClient()
 
