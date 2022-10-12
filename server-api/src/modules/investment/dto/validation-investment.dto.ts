@@ -27,9 +27,6 @@ export class CreateOrUpdateInvestmentDto {
   currency: string;
 
   @IsNotEmpty()
-  expiredMinAt: Date;
-
-  @IsNotEmpty()
   expiredMaxAt: Date;
 
   @IsOptional()
@@ -39,6 +36,10 @@ export class CreateOrUpdateInvestmentDto {
   @IsOptional()
   @IsString()
   description: string;
+
+  @IsNotEmpty()
+  @IsInt()
+  timeInvested?: number;
 
   @IsNotEmpty()
   @IsInt()

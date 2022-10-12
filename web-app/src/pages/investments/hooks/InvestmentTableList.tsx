@@ -42,7 +42,9 @@ const InvestmentTableList: React.FC<Props> = ({ investmentItem }) => {
     <>
       <tr key={investmentItem?.id}>
         <th>{investmentItem?.title}</th>
-        <td></td>
+        <td><strong>{investmentItem?.timeInvested} MESI</strong></td>
+        <td> <button type="button" className={`btn btn-sm btn-${investmentItem?.status ? 'success' : 'danger'}`}>{investmentItem?.status ? 'Active' : 'Unactivate'}</button></td>
+        <td> <button type="button" className={`btn btn-sm btn-${investmentItem?.isExpiredAt ? 'danger' : 'success'}`}>{investmentItem?.isExpiredAt ? 'Expired' : 'Valid'}</button></td>
         <td>{(investmentItem?.amount)?.toFixed(2)} {investmentItem?.currency}</td>
         <td>
           <button onClick={() => router.push({ pathname: `/investments/${investmentItem?.uuid}/edit` })}  type="button" className="btn btn-sm btn-primary m-2">Edit</button>

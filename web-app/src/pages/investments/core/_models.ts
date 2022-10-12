@@ -8,8 +8,9 @@ export type OneInvestmentResponse = {
   status: boolean;
   currency: string;
   amount: number;
+  isExpiredAt: boolean;
   description: string;
-  expiredMinAt: Date;
+  timeInvested: number;
   expiredMaxAt: Date;
 };
 
@@ -20,7 +21,7 @@ export type CreateOrUpdateInvestmentRequest = {
   currency: string;
   amount: number;
   description: string;
-  expiredMinAt: Date;
+  timeInvested: number;
   expiredMaxAt: Date;
 };
 

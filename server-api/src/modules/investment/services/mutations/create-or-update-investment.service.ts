@@ -21,7 +21,7 @@ export class CreateOrUpdateInvestmentService {
   async createOne(options: CreateInvestmentOptions): Promise<Investment> {
     const {
       userId,
-      expiredMinAt,
+      timeInvested,
       expiredMaxAt,
       title,
       currency,
@@ -37,9 +37,7 @@ export class CreateOrUpdateInvestmentService {
     investment.userId = userId;
     investment.title = title;
     investment.amount = amount;
-    investment.expiredMinAt = new Date(expiredMinAt).getTime()
-      ? expiredMinAt
-      : null;
+    investment.timeInvested = timeInvested;
     investment.expiredMaxAt = new Date(expiredMaxAt).getTime()
       ? expiredMaxAt
       : null;
@@ -60,7 +58,7 @@ export class CreateOrUpdateInvestmentService {
   ): Promise<Investment> {
     const { option1, option2 } = { ...selections };
     const {
-      expiredMinAt,
+      timeInvested,
       expiredMaxAt,
       title,
       currency,
@@ -94,7 +92,7 @@ export class CreateOrUpdateInvestmentService {
     findItem.currency = currency;
     findItem.status = status;
     findItem.amount = amount;
-    findItem.expiredMinAt = expiredMinAt;
+    findItem.timeInvested = timeInvested;
     findItem.expiredMaxAt = expiredMaxAt;
     findItem.deletedAt = deletedAt;
 

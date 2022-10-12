@@ -25,7 +25,7 @@ export class CreateOrUpdateInvestment {
       currency,
       amount,
       description,
-      expiredMinAt,
+      timeInvested,
       expiredMaxAt,
     } = {
       ...options,
@@ -48,7 +48,15 @@ export class CreateOrUpdateInvestment {
       const [errorUpdate, update] = await useCatch(
         this.createOrUpdateInvestmentService.updateOne(
           { option1: { investment_uuid } },
-          { title, currency, expiredMaxAt, expiredMinAt, amount, description },
+          {
+            title,
+            currency,
+            expiredMaxAt,
+            timeInvested,
+            amount,
+            status,
+            description,
+          },
         ),
       );
       if (errorUpdate) {
@@ -62,8 +70,9 @@ export class CreateOrUpdateInvestment {
           title,
           currency,
           expiredMaxAt,
-          expiredMinAt,
+          timeInvested,
           amount,
+          status,
           description,
           userId: 1,
         }),
@@ -93,7 +102,7 @@ export class CreateOrUpdateInvestment {
       );
 
     /** Delete one Investment */
-    const [_error, _] = await useCatch(
+    const [_error, _delete] = await useCatch(
       this.createOrUpdateInvestmentService.updateOne(
         { option1: { investment_uuid } },
         { deletedAt: new Date() },
@@ -103,6 +112,6 @@ export class CreateOrUpdateInvestment {
       throw new NotFoundException(_error);
     }
 
-    return findInvestment;
+    return _delete;
   }
 }

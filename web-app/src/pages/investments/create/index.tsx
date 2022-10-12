@@ -18,8 +18,8 @@ const schema = yup
   .object({
     title: yup.string().min(3, 'Minimum 3 symbols').required(),
     amount: yup.number().required(),
-    expiredMinAt: yup.date().min(new Date(), 'Please choose future date').required(),
-    expiredMaxAt: yup.date().min(yup.ref("expiredMinAt"), "La data massima deve essere magiore all durata investimento").required(),
+    timeInvested: yup.number().required(),
+    expiredMaxAt: yup.date().min(new Date(), 'Please choose future date').required(),
   })
   .required();
 
@@ -88,7 +88,6 @@ const InvestmentCreate: NextPage = () => {
                   isRequired={true}
                 />
               </div>
-
               <div className="col-sm-4">
                 <TextInput
                   className="form-control"
@@ -121,38 +120,34 @@ const InvestmentCreate: NextPage = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-6 fv-row fv-plugins-icon-container">
-                <label htmlFor='expiredMinAt' className="form-label fw-bolder text-dark fs-6 mb-2">
-                  <span className={'required'}>Durata investimento</span>
-                </label>
-                <Controller
-                  name={"expiredMinAt"}
-                  control={control}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <DatePicker
-                        dateFormat="dd/MM/yyyy"
-                        onChange={onChange}
-                        className="form-control"
-                        locale="it-IT"
-                        minDate={new Date()}
-                        isClearable={true}
-                        // withPortal
-                        selected={value ? dayjs(value).toDate() : null}
-                        placeholderText="Durata investimento"
-                      />
-                    );
-                  }}
+              <div className="col-sm-4">
+                <TextInput
+                  className="form-control"
+                  labelFlex="Durata investimento"
+                  register={register}
+                  errors={errors}
+                  name="timeInvested"
+                  type="number"
+                  autoComplete="one"
+                  placeholder="Durata investimento"
+                  validation={{ required: true }}
+                  required="required"
+                  isRequired={true}
                 />
-                {errors?.expiredMinAt && (
-                  <strong className='fv-plugins-message-container text-danger'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{errors?.expiredMinAt?.message}</span>
-                    </div>
-                  </strong>
-                )}
               </div>
-
+              <div className="col-sm-2">
+                <label className="form-label fw-bolder text-dark fs-6 mb-2">
+                  <span className={'required'}>{''}</span>
+                  <i className="fas fa-exclamation-circle ms-2 fs-7"></i>
+                </label>
+                <input
+                  className={`form-control`}
+                  type="text"
+                  placeholder="Mese"
+                  autoComplete="off"
+                  disabled
+                />
+              </div>
               <div className="col-md-6 fv-row fv-plugins-icon-container">
                 <label htmlFor='expiredMaxAt' className="form-label fw-bolder text-dark fs-6 mb-2">
                   <span className={'required'}>Data massima in cui si può investire</span>
@@ -196,8 +191,6 @@ const InvestmentCreate: NextPage = () => {
                 validation={{ required: false }}
               />
             </div>
-
-
             <hr className="my-4" />
 
             <div className="w-100">

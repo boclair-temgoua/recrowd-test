@@ -23,7 +23,7 @@ export class FindOneInvestmentByService {
       .addSelect('investment.currency', 'currency')
       .addSelect('investment.description', 'description')
       .addSelect('investment.expiredMaxAt', 'expiredMaxAt')
-      .addSelect('investment.expiredMinAt', 'expiredMinAt')
+      .addSelect('investment.timeInvested', 'timeInvested')
       .addSelect(
         /*sql*/ `
     CASE WHEN ("investment"."expiredMaxAt" >= now()::date) THEN false 
