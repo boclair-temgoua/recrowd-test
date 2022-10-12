@@ -15,13 +15,16 @@ export const createOneInvestmentApi = (payload: any) => {
 export const updateOneInvestmentApi = (
   payload: CreateOrUpdateInvestmentRequest
 ) => {
-  return dyaxios.put(`/investment/update/${payload?.investment_uuid}`, payload);
+  return dyaxios.put(
+    `/investments/update/${payload?.investment_uuid}`,
+    payload
+  );
 };
 
 export const deleteOneInvestmentApi = (
   payload: CreateOrUpdateInvestmentRequest
 ) => {
-  return dyaxios.delete(`/investment/update/${payload?.investment_uuid}`);
+  return dyaxios.delete(`/investments/update/${payload?.investment_uuid}`);
 };
 
 export const getInvestments = (options: {

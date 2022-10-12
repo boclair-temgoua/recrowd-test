@@ -33,7 +33,7 @@ export const PaginationItem: React.FC<Props> = ({
                                     paginate(pageItem - 1)
                                 }}
                                 className="page-link" >
-                                <i className="previous"></i>
+                                Previous
                             </button>
                         </li>
                         <li className="page-item active">
@@ -48,7 +48,7 @@ export const PaginationItem: React.FC<Props> = ({
                                     }
                                 }}
                                 className="page-link" >
-                                <i className="next"></i>
+                                Next
                             </button>
                         </li>
                     </ul>

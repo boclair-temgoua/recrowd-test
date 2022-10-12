@@ -12,10 +12,11 @@ import { getInvestments } from './api';
 import queryString from 'query-string';
 import { InvestmentTableList } from './hooks/InvestmentTableList';
 import { OneInvestmentResponse } from './core/_models';
+import { PaginationItem } from '../../utils/forms/PaginationItem';
 
 const Investment: NextPage = () => {
-
   const queryClient = useQueryClient()
+  const [pageItem, setPageItem] = useState(1)
   const router = useRouter();
   const [filter, setFilter] = useState<string>('')
 
@@ -25,7 +26,7 @@ const Investment: NextPage = () => {
     getInvestments({
       sort: 'DESC',
       q: debouncedFilter,
-      limit: 10,
+      limit: 20,
       page: Number(pageItem || 1)
     })
   const {
@@ -39,6 +40,8 @@ const Investment: NextPage = () => {
     staleTime: 5000
   })
 
+
+  const paginate = (pageItem: number) => { setPageItem(pageItem) }
 
   const dataTable = isLoading ? (<tr><td><strong>Loading...</strong></td></tr>) :
     isError ? (<tr><td><strong>Error find data please try again...</strong></td></tr>) :
@@ -86,6 +89,7 @@ const Investment: NextPage = () => {
                 {dataTable}
               </tbody>
             </table>
+
           </div>
         </main>
       </div>

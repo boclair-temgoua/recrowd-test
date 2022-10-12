@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import NavBar from '../../components/NavBar';
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -213,7 +212,7 @@ const InvestmentCreate: NextPage = () => {
                   </span>
                 )}
               </button>
-              <button type="button" className="w-100 btn btn-light">Cancel</button>
+              <button type="button" onClick={() => router.push({ pathname: "/investments", })} className="w-100 btn btn-light">Cancel</button>
             </div>
 
           </form>
