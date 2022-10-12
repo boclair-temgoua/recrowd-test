@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  }, 
-   "engines": {
+  },
+  "engines": {
     "node": "16.17.0"
   },
   "contributors": [

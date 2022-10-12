@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DeleteInvestmentMutation, OneInvestmentResponse } from '../core/_models';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
-
+import { formateDateDayjs } from '../../../utils/formate-date-dayjs';
 
 
 type Props = {
@@ -46,6 +46,7 @@ const InvestmentTableList: React.FC<Props> = ({ investmentItem }) => {
         <td> <button type="button" className={`btn btn-sm btn-${investmentItem?.status ? 'success' : 'danger'}`}>{investmentItem?.status ? 'Active' : 'Unactivate'}</button></td>
         <td> <button type="button" className={`btn btn-sm btn-${investmentItem?.isExpiredAt ? 'danger' : 'success'}`}>{investmentItem?.isExpiredAt ? 'Expired' : 'Valid'}</button></td>
         <td>{(investmentItem?.amount)?.toFixed(2)} {investmentItem?.currency}</td>
+        <td><strong>{formateDateDayjs(investmentItem?.expiredMaxAt)}</strong></td>
         <td>
           <button onClick={() => router.push({ pathname: `/investments/${investmentItem?.uuid}/edit` })}  type="button" className="btn btn-sm btn-primary m-2">Edit</button>
           <button type="button" onClick={() => { deleteItem(investmentItem) }} className="btn btn-sm btn-danger">Delete</button>

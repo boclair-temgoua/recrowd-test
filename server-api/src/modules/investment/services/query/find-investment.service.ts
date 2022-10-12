@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Investment } from '../../../../models/Investment';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { useCatch } from '../../../../infrastructure/utils/use-catch';
 import { withPagination } from '../../../../infrastructure/utils/pagination';
@@ -57,9 +57,15 @@ export class FindInvestmentService {
     }
 
     if (filterQuery?.q) {
-      query = query.andWhere('investment.title ::text ILIKE :searchQuery', {
-        searchQuery: `%${filterQuery?.q}%`,
-      });
+      query = query.andWhere(
+        new Brackets((qb) => {
+          qb.andWhere('investment.status ::text ILIKE :searchQuery', {
+            searchQuery: `%${filterQuery?.q}%`,
+          }).orWhere('investment.title ::text ILIKE :searchQuery', {
+            searchQuery: `%${filterQuery?.q}%`,
+          });
+        }),
+      );
     }
 
     const [errorRowCount, rowCount] = await useCatch(query.getCount());

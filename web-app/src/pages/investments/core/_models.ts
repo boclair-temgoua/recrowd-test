@@ -11,7 +11,7 @@ export type OneInvestmentResponse = {
   isExpiredAt: boolean;
   description: string;
   timeInvested: number;
-  expiredMaxAt: Date;
+  expiredMaxAt: any;
 };
 
 export type CreateOrUpdateInvestmentRequest = {

@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../../../styles/Home.module.css'
 import Link from 'next/link';
 import NavBar from '../components/NavBar';
 import { useRouter } from 'next/router';
@@ -9,7 +7,6 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useDebounce } from '../../utils/useDebounce';
 import { getInvestments } from './api';
-import queryString from 'query-string';
 import { InvestmentTableList } from './hooks/InvestmentTableList';
 import { OneInvestmentResponse } from './core/_models';
 import { PaginationItem } from '../../utils/forms/PaginationItem';
@@ -69,6 +66,12 @@ const Investment: NextPage = () => {
             <p className="fs-5 text-muted">All Investment list</p>
             <button type="button" onClick={() => router.push({ pathname: "/investments/create", })} className="btn btn-primary ">Create new</button>
           </div>
+          <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <p className="fs-5 text-muted">Filter by</p>
+            <button type="button" onClick={() => setFilter('')} className="btn btn-sm btn-primary me-1">Reset</button>
+            <button type="button" onClick={() => setFilter('true')} className="btn btn-sm btn-primary me-1">Investimenti attivi</button>
+            <button type="button" onClick={() => setFilter('false')} className="btn btn-sm btn-primary me-1">Investimenti non attivi</button>
+          </div>
         </header>
 
         <main>
@@ -84,6 +87,7 @@ const Investment: NextPage = () => {
                   <th >Status</th>
                   <th >IsExpired</th>
                   <th>Capitale</th>
+                  <th>Date Expired</th>
                   <th >Action</th>
                 </tr>
               </thead>
