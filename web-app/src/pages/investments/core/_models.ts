@@ -12,7 +12,6 @@ export type OneInvestmentResponse = {
 
 export type CreateOrUpdateInvestmentRequest = {
   investment_uuid?: number;
-  uid: string;
   title: string;
   status: boolean;
   currency: string;

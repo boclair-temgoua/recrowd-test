@@ -36,7 +36,7 @@ export class CreateOrUpdateInvestmentDto {
   @IsBoolean()
   status: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   description: string;
 

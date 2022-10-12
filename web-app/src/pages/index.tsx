@@ -4,8 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
 import NavBar from './components/NavBar';
+import { useRouter } from 'next/router';
 
 const Index: NextPage = () => {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -21,6 +23,8 @@ const Index: NextPage = () => {
           <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 className="display-4 fw-normal">Welcome</h1>
             <p className="fs-5 text-muted">Test coloquio</p>
+
+            <button type="button" onClick={() => router.push({ pathname: "/investments", })} className="btn btn-lg btn-primary ">Get started</button>
           </div>
         </header>
 
