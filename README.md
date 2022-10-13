@@ -32,5 +32,5 @@ npm run test:cov
 ## Installation web-app
 
 ```bash
- cd web && npm install
+ cd web-app && npm install
 ```
