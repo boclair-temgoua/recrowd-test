@@ -12,8 +12,8 @@
 
 ```bash
 # development
-npm run docker:dev:rebuild
-
+#npm run docker:dev:rebuild
+npm run migration:run && npm run seed:run && npm run start:dev
 # production mode
 npm run start:prod
 ```
